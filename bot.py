@@ -1,0 +1,20 @@
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
+
+TOKEN = "PON_AQUI_TU_TOKEN"
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Bot TikTok Recorder activo."
+    )
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+
+    print("Bot iniciado...")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
