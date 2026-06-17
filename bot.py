@@ -8,6 +8,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 print("=== INICIO ===")
 print("BOT_TOKEN =", os.getenv("BOT_TOKEN"))
 watched_users = []
+monitor_running = False
 
 TOKEN = os.getenv("BOT_TOKEN")
 
@@ -117,6 +118,19 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"Error: {e}"
         )
+
+async def monitor_loop():
+    global monitor_running
+
+    monitor_running = True
+
+    while True:
+        print("Revisando usuarios...")
+
+        for user in watched_users:
+            print(f"Usuario vigilado: {user}")
+
+        await asyncio.sleep(60)
     
 def main():
     if not TOKEN:
@@ -132,8 +146,14 @@ def main():
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
 
-    print("Bot iniciado...")
-    app.run_polling()
+print("Bot iniciado...")
+
+app.job_queue.run_once(
+    lambda context: asyncio.create_task(monitor_loop()),
+    when=5
+)
+
+app.run_polling()
 
 if __name__ == "__main__":
     main()
