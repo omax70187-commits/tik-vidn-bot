@@ -161,6 +161,10 @@ async def monitor_loop():
 
     monitor_running = True
 
+    if not os.path.exists("videos"):
+        os.makedirs("videos")
+        print("Carpeta videos creada")
+
     while True:
         print("Revisando usuarios...")
 
