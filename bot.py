@@ -15,12 +15,29 @@ recording_users = set()
 
 TOKEN = os.getenv("BOT_TOKEN")
 
+async def start_recording(username):
+    if username in recording_users:
+        return
+
+    recording_users.add(username)
+
+    print(f"INICIANDO GRABACION: {username}")
+
+    try:
+        video_file = f"videos/{username}.mp4"
+
+        print(f"Archivo destino: {video_file}")
+
+    except Exception as e:
+        print(f"Error grabando {username}: {e}")
+
+    finally:
+        recording_users.discard(username)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Bot TikTok Recorder activo."
     )
-
 
 async def monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
