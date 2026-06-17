@@ -41,6 +41,19 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text += f"- {user}\n"
 
     await update.message.reply_text(text)
+
+async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text(
+            "Uso: /record usuario"
+        )
+        return
+
+    username = context.args[0]
+
+    await update.message.reply_text(
+        f"Iniciando grabación para: {username}"
+    )
     
 def main():
     if not TOKEN:
@@ -51,6 +64,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("monitor", monitor))
     app.add_handler(CommandHandler("list", list_users))
+    app.add_handler(CommandHandler("record", record))
 
     print("Bot iniciado...")
     app.run_polling()
