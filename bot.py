@@ -64,6 +64,27 @@ async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"{username} ya está en vigilancia."
         )
+        
+async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text(
+            "Uso: /stop usuario"
+        )
+        return
+
+    username = context.args[0]
+
+    if username in watched_users:
+        watched_users.remove(username)
+
+        await update.message.reply_text(
+            f"{username} eliminado de vigilancia."
+        )
+    else:
+        await update.message.reply_text(
+            f"{username} no estaba en vigilancia."
+        )
+
 async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         client = TikTokLiveClient(unique_id="tiktok")
@@ -107,6 +128,7 @@ def main():
     app.add_handler(CommandHandler("monitor", monitor))
     app.add_handler(CommandHandler("list", list_users))
     app.add_handler(CommandHandler("record", record))
+    app.add_handler(CommandHandler("stop", stop))
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
 
