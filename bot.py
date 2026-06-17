@@ -156,6 +156,23 @@ async def ytdltest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error yt-dlp: {e}"
         )
 
+async def versiontest(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    import subprocess
+
+    try:
+        result = subprocess.run(
+            ["pip", "show", "TikTokLive"],
+            capture_output=True,
+            text=True
+        )
+
+        await update.message.reply_text(result.stdout[:4000])
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def monitor_loop():
     global monitor_running
 
@@ -198,6 +215,7 @@ def main():
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
     app.add_handler(CommandHandler("ytdltest", ytdltest))
+    app.add_handler(CommandHandler("versiontest", versiontest))
 
     print("Bot iniciado...")
 
