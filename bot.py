@@ -26,7 +26,9 @@ async def monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         f"Ahora vigilando: {username}"
     )
-    async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+
+async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not watched_users:
         await update.message.reply_text(
             "No hay usuarios vigilados."
@@ -39,7 +41,7 @@ async def monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text += f"- {user}\n"
 
     await update.message.reply_text(text)
-
+    
 def main():
     if not TOKEN:
         raise Exception("BOT_TOKEN no fue encontrado en Railway")
