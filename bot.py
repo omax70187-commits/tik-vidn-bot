@@ -4,7 +4,6 @@ from TikTokLive import TikTokLiveClient
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
-from TikTokLive import TikTokLiveClient
 
 print("=== INICIO ===")
 print("BOT_TOKEN =", os.getenv("BOT_TOKEN"))
