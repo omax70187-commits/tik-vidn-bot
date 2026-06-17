@@ -173,9 +173,10 @@ async def monitor_loop():
 
             try:
                 client = TikTokLiveClient(unique_id=user)
-
+                
                 print(f"Cliente TikTok creado: {user}")
-                print(f"Preparando comprobación: {user}")
+                print("METODOS:")
+                print(dir(client))
 
             except Exception as e:
                 print(f"Error TikTok {user}: {e}")
