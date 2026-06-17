@@ -129,7 +129,15 @@ async def monitor_loop():
         print("Revisando usuarios...")
 
         for user in watched_users:
-            print(f"Usuario vigilado: {user}")
+    print(f"Usuario vigilado: {user}")
+
+    try:
+        client = TikTokLiveClient(unique_id=user)
+
+        print(f"Cliente TikTok creado: {user}")
+
+    except Exception as e:
+        print(f"Error TikTok {user}: {e}")
 
         await asyncio.sleep(60)
     
