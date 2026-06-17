@@ -145,15 +145,15 @@ def main():
     app.add_handler(CommandHandler("stop", stop))
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
+    
+    print("Bot iniciado...")
 
-print("Bot iniciado...")
+    app.job_queue.run_once(
+        lambda context: asyncio.create_task(monitor_loop()),
+        when=5
+    )
 
-app.job_queue.run_once(
-    lambda context: asyncio.create_task(monitor_loop()),
-    when=5
-)
-
-app.run_polling()
+    app.run_polling()
 
 if __name__ == "__main__":
     main()
