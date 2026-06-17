@@ -125,7 +125,7 @@ async def monitor_loop():
 
     monitor_running = True
 
-while True:
+    while True:
     print("Revisando usuarios...")
 
     for user in watched_users:
