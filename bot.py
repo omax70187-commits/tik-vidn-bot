@@ -126,20 +126,20 @@ async def monitor_loop():
     monitor_running = True
 
     while True:
-    print("Revisando usuarios...")
+        print("Revisando usuarios...")
 
-    for user in watched_users:
-        print(f"Usuario vigilado: {user}")
+        for user in watched_users:
+            print(f"Usuario vigilado: {user}")
 
-        try:
-            client = TikTokLiveClient(unique_id=user)
+            try:
+                client = TikTokLiveClient(unique_id=user)
 
-            print(f"Cliente TikTok creado: {user}")
+                print(f"Cliente TikTok creado: {user}")
 
-        except Exception as e:
-            print(f"Error TikTok {user}: {e}")
+            except Exception as e:
+                print(f"Error TikTok {user}: {e}")
 
-    await asyncio.sleep(60)
+        await asyncio.sleep(60)
     
 def main():
     if not TOKEN:
