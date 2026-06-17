@@ -64,6 +64,18 @@ async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"{username} ya está en vigilancia."
         )
+async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        client = TikTokLiveClient(unique_id="tiktok")
+
+        await update.message.reply_text(
+            "TikTokLive funciona correctamente."
+        )
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
     
 def main():
     if not TOKEN:
@@ -75,6 +87,7 @@ def main():
     app.add_handler(CommandHandler("monitor", monitor))
     app.add_handler(CommandHandler("list", list_users))
     app.add_handler(CommandHandler("record", record))
+    app.add_handler(CommandHandler("tiktoktest", tiktoktest))
 
     print("Bot iniciado...")
     app.run_polling()
