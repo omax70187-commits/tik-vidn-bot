@@ -1,13 +1,13 @@
 import os
 import asyncio
-import TikTokLive
 
 from TikTokLive import TikTokLiveClient
+import TikTokLive.__version__ as tkv
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-print("TikTokLive version:", getattr(TikTokLive, "__version__", "desconocida"))
+print("TikTokLive version:", tkv.__version__)
 
 print("=== INICIO ===")
 print("BOT_TOKEN cargado correctamente")
