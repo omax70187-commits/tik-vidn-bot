@@ -26,6 +26,19 @@ async def monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         f"Ahora vigilando: {username}"
     )
+    async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not watched_users:
+        await update.message.reply_text(
+            "No hay usuarios vigilados."
+        )
+        return
+
+    text = "Usuarios vigilados:\n\n"
+
+    for user in watched_users:
+        text += f"- {user}\n"
+
+    await update.message.reply_text(text)
 
 def main():
     if not TOKEN:
@@ -35,6 +48,7 @@ def main():
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("monitor", monitor))
+    app.add_handler(CommandHandler("list", list_users))
 
     print("Bot iniciado...")
     app.run_polling()
