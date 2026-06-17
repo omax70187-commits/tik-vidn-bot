@@ -98,6 +98,7 @@ async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"Error: {e}"
         )
+
 async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
@@ -111,12 +112,12 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
         client = TikTokLiveClient(unique_id=username)
 
         await update.message.reply_text(
-            f"Usuario preparado para consulta: {username}"
+            f"Usuario TikTok encontrado: {username}"
         )
 
     except Exception as e:
         await update.message.reply_text(
-            f"Error: {e}"
+            f"Error comprobando {username}: {e}"
         )
 
 async def monitor_loop():
