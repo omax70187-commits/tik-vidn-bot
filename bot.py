@@ -43,6 +43,7 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text)
 
 async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
+   async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
             "Uso: /record usuario"
@@ -51,9 +52,17 @@ async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     username = context.args[0]
 
-    await update.message.reply_text(
-        f"Iniciando grabación para: {username}"
-    )
+    if username not in watched_users:
+        watched_users.append(username)
+
+        await update.message.reply_text(
+            f"Usuario {username} añadido a vigilancia.\n"
+            f"Intentaré grabarlo cuando esté en vivo."
+        )
+    else:
+        await update.message.reply_text(
+            f"{username} ya está en vigilancia."
+        )
     
 def main():
     if not TOKEN:
