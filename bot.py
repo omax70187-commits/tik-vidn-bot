@@ -11,6 +11,7 @@ print("BOT_TOKEN cargado correctamente")
 
 watched_users = []
 monitor_running = False
+recording_users = set()
 
 TOKEN = os.getenv("BOT_TOKEN")
 
