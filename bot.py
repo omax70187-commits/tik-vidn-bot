@@ -102,6 +102,7 @@ def main():
     app.add_handler(CommandHandler("list", list_users))
     app.add_handler(CommandHandler("record", record))
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
+    app.add_handler(CommandHandler("check", check))
 
     print("Bot iniciado...")
     app.run_polling()
