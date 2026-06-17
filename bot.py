@@ -78,6 +78,18 @@ async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"Error: {e}"
         )
+async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text(
+            "Uso: /check usuario"
+        )
+        return
+
+    username = context.args[0]
+
+    await update.message.reply_text(
+        f"Comprobando usuario: {username}"
+    )
     
 def main():
     if not TOKEN:
