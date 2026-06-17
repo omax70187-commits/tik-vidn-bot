@@ -1,11 +1,13 @@
 import os
 import asyncio
 from TikTokLive import TikTokLiveClient
+import TikTokLive
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 print("=== INICIO ===")
+print("TikTokLive =", TikTokLive.__version__)
 print("BOT_TOKEN =", os.getenv("BOT_TOKEN"))
 watched_users = []
 
