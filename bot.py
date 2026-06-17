@@ -6,7 +6,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 print("=== INICIO ===")
-print("BOT_TOKEN =", os.getenv("BOT_TOKEN"))
+print("BOT_TOKEN cargado correctamente")
 watched_users = []
 monitor_running = False
 
