@@ -43,7 +43,6 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text)
 
 async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
-   async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
             "Uso: /record usuario"
