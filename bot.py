@@ -8,13 +8,19 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 
 print("=== INICIO ===")
 print("BOT_TOKEN cargado correctamente")
+
 watched_users = []
 monitor_running = False
 
 TOKEN = os.getenv("BOT_TOKEN")
 
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Bot TikTok Recorder activo.")
+    await update.message.reply_text(
+        "Bot TikTok Recorder activo."
+    )
+
+
 async def monitor(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
@@ -46,6 +52,7 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(text)
 
+
 async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
@@ -66,7 +73,8 @@ async def record(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"{username} ya está en vigilancia."
         )
-        
+
+
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
@@ -87,6 +95,13 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"{username} no estaba en vigilancia."
         )
 
+
+async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        f"Monitor activo\nUsuarios vigilados: {len(watched_users)}"
+    )
+
+
 async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         client = TikTokLiveClient(unique_id="tiktok")
@@ -99,6 +114,7 @@ async def tiktoktest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"Error: {e}"
         )
+
 
 async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -121,6 +137,7 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error comprobando {username}: {e}"
         )
 
+
 async def monitor_loop():
     global monitor_running
 
@@ -142,7 +159,8 @@ async def monitor_loop():
                 print(f"Error TikTok {user}: {e}")
 
         await asyncio.sleep(60)
-    
+
+
 def main():
     if not TOKEN:
         raise Exception("BOT_TOKEN no fue encontrado en Railway")
@@ -154,9 +172,10 @@ def main():
     app.add_handler(CommandHandler("list", list_users))
     app.add_handler(CommandHandler("record", record))
     app.add_handler(CommandHandler("stop", stop))
+    app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
-    
+
     print("Bot iniciado...")
 
     app.job_queue.run_once(
@@ -165,6 +184,7 @@ def main():
     )
 
     app.run_polling()
+
 
 if __name__ == "__main__":
     main()
