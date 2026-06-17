@@ -1,13 +1,11 @@
 import os
 import asyncio
 from TikTokLive import TikTokLiveClient
-import TikTokLive
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 print("=== INICIO ===")
-print("TikTokLive =", TikTokLive.__version__)
 print("BOT_TOKEN =", os.getenv("BOT_TOKEN"))
 watched_users = []
 
@@ -87,9 +85,17 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     username = context.args[0]
 
-    await update.message.reply_text(
-        f"Comprobando usuario: {username}"
-    )
+    try:
+        client = TikTokLiveClient(unique_id=username)
+
+        await update.message.reply_text(
+            f"Usuario preparado para consulta: {username}"
+        )
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
     
 def main():
     if not TOKEN:
