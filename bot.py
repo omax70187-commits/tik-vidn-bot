@@ -228,6 +228,25 @@ async def versiontest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error: {e}"
         )
 
+async def ffmpegtest(update, context):
+    import subprocess
+
+    try:
+        result = subprocess.run(
+            ["ffmpeg", "-version"],
+            capture_output=True,
+            text=True
+        )
+
+        await update.message.reply_text(
+            result.stdout[:4000]
+        )
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def grabtest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     import subprocess
 
@@ -334,7 +353,7 @@ async def monitor_loop():
                 print(f"room_id = {client.room_id}")
                 print(f"room_info = {client.room_info}")
                 
-                if client.is_live:
+                if client.is_live():
                     
                     print(f"LIVE DETECTADO: {user}")
                     
@@ -370,6 +389,7 @@ def main():
     app.add_handler(CommandHandler("tiktokinfo", tiktokinfo))
     app.add_handler(CommandHandler("ytdltest", ytdltest))
     app.add_handler(CommandHandler("versiontest", versiontest))
+    app.add_handler(CommandHandler("ffmpegtest", ffmpegtest))
     app.add_handler(CommandHandler("grabtest", grabtest))
     app.add_handler(CommandHandler("livetest", livetest))
     app.add_handler(CommandHandler("roomtest", roomtest))
