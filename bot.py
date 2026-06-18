@@ -30,13 +30,18 @@ async def start_recording(username):
         
         print(f"Archivo destino: {video_file}")
         
-        result = subprocess.run(
-            ["yt-dlp", "--version"],
-            capture_output=True,
-            text=True
+        live_url = f"https://www.tiktok.com/@{username}/live"
+        
+        subprocess.Popen(
+            [
+                "yt-dlp",
+                "-o",
+                video_file,
+                live_url
+            ]
         )
         
-        print("yt-dlp:", result.stdout)
+        print(f"Grabacion lanzada para: {username}")
 
     except Exception as e:
         print(f"Error grabando {username}: {e}")
