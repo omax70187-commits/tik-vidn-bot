@@ -233,10 +233,16 @@ async def monitor_loop():
                 client = TikTokLiveClient(unique_id=user)
                 
                 print(f"Cliente TikTok creado: {user}")
-                print(f"Preparando comprobación: {user}")
                 
-                if user not in recording_users:
-                    await start_recording(user)
+                if client.is_live:
+                    
+                    print(f"LIVE DETECTADO: {user}")
+                    
+                    if user not in recording_users:
+                        await start_recording(user)
+                
+                else:
+                    print(f"Offline: {user}")
 
             except Exception as e:
                 print(f"Error TikTok {user}: {e}")
