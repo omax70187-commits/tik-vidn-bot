@@ -266,21 +266,6 @@ async def monitor_loop():
 
                 print(f"Cliente TikTok creado: {user}")
 
-                try:
-                    print("is_live =", client.is_live)
-                except Exception as e:
-                    print("Error leyendo is_live:", e)
-
-                try:
-                    print("room_id =", client.room_id)
-                except Exception as e:
-                    print("Error leyendo room_id:", e)
-
-                try:
-                    print("room_info =", client.room_info)
-                except Exception as e:
-                    print("Error leyendo room_info:", e)
-
                 if client.is_live:
 
                     print(f"LIVE DETECTADO: {user}")
