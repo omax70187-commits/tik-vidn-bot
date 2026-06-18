@@ -165,6 +165,19 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error comprobando {username}: {e}"
         )
 
+async def tiktokinfo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        methods = [m for m in dir(TikTokLiveClient) if not m.startswith("_")]
+
+        text = "\n".join(methods)
+
+        await update.message.reply_text(text[:4000])
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def ytdltest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     import subprocess
 
@@ -245,6 +258,7 @@ def main():
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("tiktoktest", tiktoktest))
     app.add_handler(CommandHandler("check", check))
+    app.add_handler(CommandHandler("tiktokinfo", tiktokinfo))
     app.add_handler(CommandHandler("ytdltest", ytdltest))
     app.add_handler(CommandHandler("versiontest", versiontest))
 
