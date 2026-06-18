@@ -24,9 +24,19 @@ async def start_recording(username):
     print(f"INICIANDO GRABACION: {username}")
 
     try:
+        import subprocess
+        
         video_file = f"videos/{username}.mp4"
-
+        
         print(f"Archivo destino: {video_file}")
+        
+        result = subprocess.run(
+            ["yt-dlp", "--version"],
+            capture_output=True,
+            text=True
+        )
+        
+        print("yt-dlp:", result.stdout)
 
     except Exception as e:
         print(f"Error grabando {username}: {e}")
