@@ -219,6 +219,29 @@ async def versiontest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error: {e}"
         )
 
+async def grabtest(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    import subprocess
+
+    try:
+        result = subprocess.run(
+            [
+                "yt-dlp",
+                "-F",
+                "https://www.tiktok.com/@chimbotebaltayespinar5/live"
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        output = result.stdout + "\n" + result.stderr
+
+        await update.message.reply_text(output[:4000])
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def monitor_loop():
     global monitor_running
 
@@ -272,6 +295,7 @@ def main():
     app.add_handler(CommandHandler("tiktokinfo", tiktokinfo))
     app.add_handler(CommandHandler("ytdltest", ytdltest))
     app.add_handler(CommandHandler("versiontest", versiontest))
+    app.add_handler(CommandHandler("grabtest", grabtest))
 
     print("Bot iniciado...")
 
