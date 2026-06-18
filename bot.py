@@ -35,6 +35,7 @@ async def start_recording(username):
         subprocess.Popen(
             [
                 "yt-dlp",
+                "--verbose",
                 "-o",
                 video_file,
                 live_url
