@@ -172,9 +172,13 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def tiktokinfo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        methods = [m for m in dir(TikTokLiveClient) if not m.startswith("_")]
+        client = TikTokLiveClient(unique_id="tiktok")
 
-        text = "\n".join(methods)
+        text = ""
+
+        text += f"room_info: {client.room_info}\n\n"
+        text += f"is_live: {client.is_live}\n\n"
+        text += f"room_id: {client.room_id}\n\n"
 
         await update.message.reply_text(text[:4000])
 
