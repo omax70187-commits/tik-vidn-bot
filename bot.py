@@ -333,8 +333,6 @@ async def monitor_loop():
                 print(f"is_live = {client.is_live}")
                 print(f"room_id = {client.room_id}")
                 print(f"room_info = {client.room_info}")
-
-                if client.is_live:
                 
                 if client.is_live:
                     
