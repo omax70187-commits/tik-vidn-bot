@@ -276,6 +276,36 @@ async def livetest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error: {e}"
         )
 
+async def roomtest(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text(
+            "Uso: /roomtest usuario"
+        )
+        return
+
+    username = context.args[0]
+
+    try:
+        client = TikTokLiveClient(unique_id=username)
+
+        await client.start()
+
+        text = ""
+
+        text += f"room_id: {client.room_id}\n\n"
+        text += f"room_info: {client.room_info}\n\n"
+
+        await update.message.reply_text(
+            str(text)[:4000]
+        )
+
+        await client.disconnect()
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def monitor_loop():
     global monitor_running
 
@@ -330,6 +360,7 @@ def main():
     app.add_handler(CommandHandler("versiontest", versiontest))
     app.add_handler(CommandHandler("grabtest", grabtest))
     app.add_handler(CommandHandler("livetest", livetest))
+    app.add_handler(CommandHandler("roomtest", roomtest))
 
     print("Bot iniciado...")
 
