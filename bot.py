@@ -247,6 +247,35 @@ async def grabtest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"Error: {e}"
         )
 
+async def livetest(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text(
+            "Uso: /livetest usuario"
+        )
+        return
+
+    username = context.args[0]
+
+    try:
+        client = TikTokLiveClient(unique_id=username)
+
+        await update.message.reply_text(
+            f"Creando cliente para {username}"
+        )
+
+        await client.start()
+
+        await update.message.reply_text(
+            "Conexion TikTokLive iniciada"
+        )
+
+        await client.disconnect()
+
+    except Exception as e:
+        await update.message.reply_text(
+            f"Error: {e}"
+        )
+
 async def monitor_loop():
     global monitor_running
 
@@ -300,6 +329,7 @@ def main():
     app.add_handler(CommandHandler("ytdltest", ytdltest))
     app.add_handler(CommandHandler("versiontest", versiontest))
     app.add_handler(CommandHandler("grabtest", grabtest))
+    app.add_handler(CommandHandler("livetest", livetest))
 
     print("Bot iniciado...")
 
