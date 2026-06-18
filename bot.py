@@ -32,7 +32,7 @@ async def start_recording(username):
         
         live_url = f"https://www.tiktok.com/@{username}/live"
         
-        subprocess.Popen(
+        process = subprocess.Popen(
             [
                 "yt-dlp",
                 "--verbose",
@@ -43,6 +43,10 @@ async def start_recording(username):
         )
         
         print(f"Grabacion lanzada para: {username}")
+        print(f"PID yt-dlp: {process.pid}")
+        
+        while process.poll() is None:
+            await asyncio.sleep(10)
 
     except Exception as e:
         print(f"Error grabando {username}: {e}")
@@ -326,10 +330,20 @@ async def monitor_loop():
 
                 print(f"Cliente TikTok creado: {user}")
 
+                print(f"is_live = {client.is_live}")
+                print(f"room_id = {client.room_id}")
+                print(f"room_info = {client.room_info}")
+
                 if client.is_live:
-
+                
+                if client.is_live:
+                    
                     print(f"LIVE DETECTADO: {user}")
-
+                    
+                    print("Esperando 30 segundos...")
+                    
+                    await asyncio.sleep(30)
+                    
                     if user not in recording_users:
                         await start_recording(user)
 
