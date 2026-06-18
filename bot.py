@@ -263,16 +263,31 @@ async def monitor_loop():
 
             try:
                 client = TikTokLiveClient(unique_id=user)
-                
+
                 print(f"Cliente TikTok creado: {user}")
-                
+
+                try:
+                    print("is_live =", client.is_live)
+                except Exception as e:
+                    print("Error leyendo is_live:", e)
+
+                try:
+                    print("room_id =", client.room_id)
+                except Exception as e:
+                    print("Error leyendo room_id:", e)
+
+                try:
+                    print("room_info =", client.room_info)
+                except Exception as e:
+                    print("Error leyendo room_info:", e)
+
                 if client.is_live:
-                    
+
                     print(f"LIVE DETECTADO: {user}")
-                    
+
                     if user not in recording_users:
                         await start_recording(user)
-                
+
                 else:
                     print(f"Offline: {user}")
 
@@ -280,7 +295,6 @@ async def monitor_loop():
                 print(f"Error TikTok {user}: {e}")
 
         await asyncio.sleep(60)
-
 
 def main():
     if not TOKEN:
